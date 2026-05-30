@@ -574,11 +574,26 @@ margin-left thì các thẻ đồng cấp phía sau cũng bị lôi theo auto ma
   display: flex;
   margin-top: 55px;
   gap: 30px;
+  overflow: hidden
 }
 .blogs .item {
-  width: 33.33%;
+  flex-shrink: 0; /* 0: ko bị co lại, 1 (default) | 2| 3| ... xác định khả năng co lại của item */ 
+  width: calc(33.33% - 20px);
   border-radius: 16px;
   background: #fff;
+  animation: slideAnimation 25s infinite;
+  /* transform: translateX(calc(-(100% + 20px))); */
+}
+@keyframes slideAnimation {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  33.33% {
+    transform: translateX(calc( -3 * (100% + 1.5 * 20px)));
+  }
+  66.66% {
+    transform: translateX(calc( -6 * (100% + 1.5 * 20px))); 
+  }
 }
 .blogs .item:hover {
     box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.05);
@@ -629,7 +644,26 @@ margin-left thì các thẻ đồng cấp phía sau cũng bị lôi theo auto ma
 }
 .blogs .item .btn {
   margin-top: 12px;
+  font-size: 1.4rem;
 }
 .blogs .item .btn:hover {
   background: var(--primary-color);
+}
+
+.blogs .dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 38px;
+}
+.blogs .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #5f5b53;
+}
+.blogs .dot.active {
+  background: var(--primary-color);
+  cursor: default;
 }
